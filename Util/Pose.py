@@ -6,7 +6,8 @@ class Pose(object):
     def __init__(self, position=Position(), orientation=0.0):
         assert(isinstance(position, Position)), 'position should be Position object.'
         assert(isinstance(orientation, (int, float))), 'orientation should be int or float value.'
-#        assert(0 <= orientation <= 360), 'orientation should be between 0 and 360 degrees'
+        
+        orientation = orientation % 360
 
         self.position = position
         self.orientation = orientation
