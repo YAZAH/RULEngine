@@ -110,9 +110,13 @@ def send_robot_commands(game, engine):
     commands = game.get_commands()
     for command in commands:
         #robot_command = command.to_robot_command()
-        position = command.pose.position
-        x, y, theta = convertPositionToSpeed(command.player, position.x, position.y, 0)     
-        x, y = -y, x
+        if command.is_speed_command:
+          x,y = (0,0)
+        else:
+          position = command.pose.position
+          x, y, theta = convertPositionToSpeed(command.player, position.x, position.y, 0)     
+          x, y = -y, x
+
         sercommand = bytearray(protocol.createSpeedCommand(x, y, 0, 0))
         print(x,y)
         ser.write(sercommand)
